@@ -5,9 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitHubAutoManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Button x:Name="BUTTON_TEST" Content="DEBUG:TEST" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Width="92" Height="54" Click="BUTTON_TEST_Click"/>
+        Title="MainWindow" Height="680" Width="920" Grid.IsSharedSizeScope="True" MinWidth="620" MinHeight="480" MaxWidth="3000" MaxHeight="3000" WindowStyle="None" AllowsTransparency="True" BorderBrush="Black" BorderThickness="0.1">
+    <Window.Resources>
+        <Storyboard x:Key="ShowLogin" Completed="ShowLoginCompleted">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LeftGrid">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.7" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LeftGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="236.25"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="283.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)" Storyboard.TargetName="MainGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="13"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="HideLogin" Completed="HideLoginCompleted" >
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LeftGrid">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LeftGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="283.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)" Storyboard.TargetName="MainGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="13"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="LoginFall_Wrong_ID_PW">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LoginInfo">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-7.667"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="7.444"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Grid x:Name="grid" Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="365*"/>
+            <ColumnDefinition Width="325*"/>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="230.441"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="359*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="MainGrid" Margin="10,36,27,30" Grid.RowSpan="3" Grid.ColumnSpan="5">
+            <Grid.Effect>
+                <BlurEffect Radius="0"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button x:Name="BUTTON_TEST" Content="LOGIN" Margin="35,0,0,0" VerticalAlignment="Top" Height="24" Click="BUTTON_TEST_Click" HorizontalAlignment="Left" Width="80"/>
+        </Grid>
+        <Grid x:Name="LeftGrid" HorizontalAlignment="Left" Height="542" Margin="-274,36,0,0" VerticalAlignment="Top" Width="276" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="189*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="77*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+            <Grid x:Name="LoginGrid" Margin="0,0,10,0" Grid.ColumnSpan="3" Height="100" VerticalAlignment="Top" d:IsHidden="True">
+                <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="186.778,0,-161.778,-159" VerticalAlignment="Bottom" Width="75" Height="55" Background="White" BorderBrush="Black" RenderTransformOrigin="0.71,1.155" Click="LoginButton_Click"/>
+                <TextBox x:Name="UI_ID" HorizontalAlignment="Left" Height="26" Margin="43,0,-71,-131" TextWrapping="Wrap" Text="DevSDK" VerticalAlignment="Bottom" Width="128"/>
+                <PasswordBox x:Name="UI_Password" HorizontalAlignment="Left" Margin="43,0,-71,-162" VerticalAlignment="Bottom" Width="128" Height="26" KeyDown="UI_Password_KeyDown"/>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,0,0,-117" TextWrapping="Wrap" Text="ID" VerticalAlignment="Bottom" Height="18"/>
+                <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="16,0,0,-162" TextWrapping="Wrap" Text="PW" VerticalAlignment="Bottom" Height="18"/>
+                <Image x:Name="OctoCon" HorizontalAlignment="Left" Height="74" Margin="102,361,-71,-335" VerticalAlignment="Top" Width="69" Source="octocon.png"/>
+                <Button x:Name="Hide" Content="&gt;" HorizontalAlignment="Left" Margin="233.5,10,-169.5,0" VerticalAlignment="Top" Width="36" Height="28" Click="Hide_Click"/>
+                <TextBlock x:Name="LoginInfo" HorizontalAlignment="Left" Margin="48,267,0,-179" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Foreground="#FFFF4141" Height="12" FontSize="10" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform><Run Text="login failed wrong "/><Run Text="id"/><Run Text="/pw"/></TextBlock>
+            </Grid>
+            <Grid x:Name="ProfileGrid" Margin="0,0,0,20" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden">
+                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
+                <TextBlock x:Name="UI_UserName" HorizontalAlignment="Left" Margin="52.65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="aa"/>
+            </Grid>
+            <Image x:Name="Avator" HorizontalAlignment="Left" Height="100" Margin="79,10,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Width="100"/>
+        </Grid>
+        <Rectangle x:Name="TitleBar" Height="32" VerticalAlignment="Top" Grid.ColumnSpan="5" Stroke="White" Margin="0,0,-2,0" StrokeThickness="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFAEACAC" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFC8C7C7" Offset="0.367"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Button x:Name="Button_ApplicationExit" Content="X" Grid.Column="4" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Width="33" BorderBrush="{x:Null}" Background="{x:Null}" Height="40" Click="Button_ApplicationExit_Click"/>
+        <Button x:Name="Button_ApplicationHide" Content="-" Grid.Column="3" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Width="37" RenderTransformOrigin="1.067,0.5" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18" Click="Button_ApplicationHide_Click" Height="40"/>
 
     </Grid>
 </Window>

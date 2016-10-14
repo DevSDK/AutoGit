@@ -5,16 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitHubAutoManager"
         mc:Ignorable="d"
-        Title="TestWindow" Height="300" Width="300">
-    <Grid x:Name="TestWindow">
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="151" Margin="60,82,0,0" VerticalAlignment="Top" Width="181">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="60,39,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        Title="GIT::Login" Height="273.5" Width="300">
+    <Grid x:Name="TestWindow" Margin="0,0,0,20">
+        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="187,156,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Height="49" Background="White" BorderBrush="Black" RenderTransformOrigin="0.71,1.155"/>
+        <TextBox x:Name="UI_ID" HorizontalAlignment="Left" Height="23" Margin="43,151,0,0" TextWrapping="Wrap" Text="DevSDK" VerticalAlignment="Top" Width="128"/>
+        <PasswordBox x:Name="UI_Password" HorizontalAlignment="Left" Margin="43,179,0,0" VerticalAlignment="Top" Width="128" Height="23"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,152,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="16,192,0,0" TextWrapping="Wrap" Text="PW" VerticalAlignment="Top"/>
+        <Image x:Name="OctoCon" HorizontalAlignment="Left" Height="69" Margin="102,45,0,0" VerticalAlignment="Top" Width="69" Source="octocon.png"/>
 
     </Grid>
 </Window>

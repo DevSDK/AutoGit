@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Octokit;
+using System.Runtime.CompilerServices;
 
 namespace GitHubAutoManager
 {
@@ -19,16 +21,31 @@ namespace GitHubAutoManager
     /// </summary>
     public partial class Window1 : Window
     {
+        private object sync =  new object();
+        private GitHubClient client;
+        private User user;
+
         public Window1()
         {
             InitializeComponent();
+            client = new GitHubClient(new ProductHeaderValue("Test"));
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+       
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
-           string data =  GItHttpManager.Request_Type_Get("https://api.github.com/users/DevSDK");
-            Console.WriteLine(data);
-           
+
+            var basicAuth = new Credentials(UI_ID.Text, UI_Password.Password); 
+            client.Credentials = basicAuth;
+
+            User _user = await client.User.Current();
+
+            lock (sync)
+                user = _user;
+            
+        
+
+
         }
     }
 }
