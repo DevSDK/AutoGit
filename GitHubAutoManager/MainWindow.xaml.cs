@@ -56,7 +56,8 @@ namespace GitHubAutoManager
                 return false;
             }
                 return true;
-          }
+        }
+
         private void LoginSecces()
         {
             LoginGrid.Visibility = Visibility.Hidden;
