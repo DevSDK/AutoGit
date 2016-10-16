@@ -15,14 +15,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Octokit;
+
+
 namespace GitHubAutoManager
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
-    /// 
 
-    
     public partial class MainWindow : Window
     {
 
@@ -35,7 +32,6 @@ namespace GitHubAutoManager
 
         private async Task<bool> Login(string id , string pw)
         {
-            bool logned = false;
             try
             {
                 Credentials basicAuth = new Credentials(id, pw);
@@ -49,7 +45,7 @@ namespace GitHubAutoManager
                 LoginInfo.Visibility = Visibility.Visible;
                 Storyboard LoginSlide = (Storyboard)FindResource("LoginFall_Wrong_ID_PW");
                 LoginSlide.Begin(this);
-                return true;
+                return false;
             }
             catch(ArgumentException exp)
             {
@@ -65,8 +61,11 @@ namespace GitHubAutoManager
         {
             LoginGrid.Visibility = Visibility.Hidden;
             ProfileGrid.Visibility = Visibility.Visible;
-            UI_UserName.Text = CurrentUser.Name;
-
+            UI_UserName.Text = CurrentUser.Name + "'s ProFile";
+            UI_USERID.Text = CurrentUser.Login; ;
+            UI_About.Text = CurrentUser.Bio;
+            ProfileResourceManager.setUser(CurrentUser);
+            Avator.Source = new BitmapImage(new Uri(CurrentUser.AvatarUrl));
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -83,7 +82,7 @@ namespace GitHubAutoManager
             isLogined = await Login(UI_ID.Text, UI_Password.Password);
             if (isLogined == true)
                 LoginSecces();
-
+           
         }
 
 
@@ -96,7 +95,7 @@ namespace GitHubAutoManager
 
 
 
-        private void BUTTON_TEST_Click(object sender, RoutedEventArgs e)
+        private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
             if(isLogined == false && isShowedLogin == false)
             {
@@ -143,17 +142,16 @@ namespace GitHubAutoManager
         {
             this.DragMove();
         }
-
-
-
-
-
-
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
-   
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+            
+        }
     }
 }
