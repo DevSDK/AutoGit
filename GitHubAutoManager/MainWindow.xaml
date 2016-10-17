@@ -154,6 +154,18 @@
                 </Border>
                 <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Text="ID" Foreground="#FFACACAC"/>
                 <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,-24,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="3" Width="140" Foreground="#FF6E6E6E" Grid.Row="1"/>
+                <ListView x:Name="listView" Margin="-10,67.441,17,-117" IsManipulationEnabled="True" Background="{x:Null}" Foreground="#FFEFF1F5" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,-0.405"   BorderThickness="0" Grid.Row="4" Grid.ColumnSpan="2">
+                    <ListViewItem Content="ListViewItem" Height="44.059"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="  logout" Height="44.059" Foreground="Black"/>
+                </ListView>
             </Grid>
         </Grid>
         <Rectangle x:Name="TitleBar" Height="32" VerticalAlignment="Top" Grid.ColumnSpan="5" Stroke="White" Margin="0,0,-2,0" StrokeThickness="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
@@ -169,20 +181,6 @@
 
 
         <Button x:Name="Button_ApplicationHide" Content="-" Grid.Column="3" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Width="37" RenderTransformOrigin="1.067,0.5" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18" Style="{StaticResource HideButtonStyle}"  Click="Button_ApplicationHide_Click" Height="40"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="-74.92,-100,0,101.8" Width="160" IsManipulationEnabled="True" Background="{x:Null}" Foreground="#FFEFF1F5" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,-0.405" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"   BorderThickness="0">
-            <ListView.View> 
-                <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
-
-                </GridView>
-            </ListView.View>
-            <ListViewItem Content="ListViewItem" Height="100" Margin="0"/>
-            <ListViewItem Content="ListViewItem" Height="100" Margin="0"/>
-        </ListView>
 
     </Grid>
 </Window>

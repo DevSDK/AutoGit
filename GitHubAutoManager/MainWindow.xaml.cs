@@ -98,23 +98,17 @@ namespace GitHubAutoManager
                 LoginGrid.Visibility = Visibility.Visible;
                 LoginSlide.Begin(this);
             }
-
             if(isLogined == true && isShowedLogin == false)
             {
                 Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
-    
                 LoginSlide.Begin(this);
-
             }
         }
-        
         private void Hide_Click(object sender, RoutedEventArgs e)
         {
             if (isShowedLogin == false)
                 return;
             Storyboard LoginSlide = (Storyboard)FindResource("HideLeftGrid");
-           
-
             LoginSlide.Begin(this);
         }
 
