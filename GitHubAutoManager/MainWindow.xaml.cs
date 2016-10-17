@@ -36,7 +36,6 @@ namespace GitHubAutoManager
             {
                 Credentials basicAuth = new Credentials(id, pw);
                 Client.Credentials = basicAuth;
-              
                 CurrentUser = await Client.User.Current();
             }
             catch (AuthorizationException exp)
@@ -65,6 +64,7 @@ namespace GitHubAutoManager
             UI_UserName.Text = CurrentUser.Name + "'s ProFile";
             UI_USERID.Text = CurrentUser.Login; ;
             UI_About.Text = CurrentUser.Bio;
+            Button_Login.Content = "Profile";
             ProfileResourceManager.setUser(CurrentUser);
             Avator.Source = new BitmapImage(new Uri(CurrentUser.AvatarUrl));
         }
@@ -83,36 +83,36 @@ namespace GitHubAutoManager
             isLogined = await Login(UI_ID.Text, UI_Password.Password);
             if (isLogined == true)
                 LoginSecces();
-           
         }
-
-
-
+        
         //////////////////// UX/UI ////////////////////
 
 
         private bool isShowedLogin = false;
-       
-
-
 
         private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
             if(isLogined == false && isShowedLogin == false)
             {
-                Storyboard LoginSlide = (Storyboard)FindResource("ShowLogin");
+                Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
                 LoginGrid.Visibility = Visibility.Visible;
                 LoginSlide.Begin(this);
             }
 
+            if(isLogined == true && isShowedLogin == false)
+            {
+                Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
+    
+                LoginSlide.Begin(this);
+
+            }
         }
-
-
+        
         private void Hide_Click(object sender, RoutedEventArgs e)
         {
             if (isShowedLogin == false)
                 return;
-            Storyboard LoginSlide = (Storyboard)FindResource("HideLogin");
+            Storyboard LoginSlide = (Storyboard)FindResource("HideLeftGrid");
            
 
             LoginSlide.Begin(this);
@@ -122,13 +122,14 @@ namespace GitHubAutoManager
         {
             isShowedLogin = true;
         }
+
         private void HideLoginCompleted(object sender, EventArgs e)
         {
             isShowedLogin = false;
         }
 
-
         //////////////////// TitleBar ////////////////////
+
         private void Button_ApplicationExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();

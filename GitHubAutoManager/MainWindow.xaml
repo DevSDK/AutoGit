@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="680" Width="920" Grid.IsSharedSizeScope="True" MinWidth="620" MinHeight="480" MaxWidth="3000" MaxHeight="3000" WindowStyle="None" AllowsTransparency="True" BorderBrush="Black" BorderThickness="0.1">
     <Window.Resources>
-        <Storyboard x:Key="ShowLogin" Completed="ShowLoginCompleted">
+        <Storyboard x:Key="ShowLeftGrid" Completed="ShowLoginCompleted">
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LeftGrid">
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
@@ -24,7 +24,7 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="13"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="HideLogin" Completed="HideLoginCompleted" >
+        <Storyboard x:Key="HideLeftGrid" Completed="HideLoginCompleted" >
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LeftGrid">
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
@@ -120,6 +120,10 @@
                     </TextBlock.RenderTransform><Run Text="login failed wrong "/><Run Text="id"/><Run Text="/pw"/></TextBlock>
             </Grid>
             <Grid x:Name="ProfileGrid" Margin="0,0,0,20" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="53*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="83*"/>
                     <RowDefinition Height="2*"/>
@@ -127,7 +131,7 @@
                     <RowDefinition Height="32*"/>
                     <RowDefinition Height="398*"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="UI_UserName" Margin="10,10,17,44" TextWrapping="Wrap" FontSize="20">
+                <TextBlock x:Name="UI_UserName" Margin="10,10,17,44" TextWrapping="Wrap" FontSize="20" Grid.ColumnSpan="2">
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF006EF1" Offset="0"/>
@@ -135,7 +139,7 @@
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <Border BorderThickness="2" HorizontalAlignment="Right" Margin="0,50,17,368" Width="104" Grid.RowSpan="5">
+                <Border BorderThickness="2" Margin="-15.4,-33,17,-30" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1">
                     <Border.BorderBrush>
                         <RadialGradientBrush RadiusX="1" RadiusY="0.8">
                             <GradientStop Color="White" Offset="0"/>
@@ -148,8 +152,8 @@
                         </Image.Effect>
                     </Image>
                 </Border>
-                <TextBlock x:Name="UI_USERID" Margin="24,39,133.64,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Text="ID" Foreground="#FFACACAC"/>
-                <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="5" Width="140" Foreground="#FF6E6E6E"/>
+                <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Text="ID" Foreground="#FFACACAC"/>
+                <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,-24,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="3" Width="140" Foreground="#FF6E6E6E" Grid.Row="1"/>
             </Grid>
         </Grid>
         <Rectangle x:Name="TitleBar" Height="32" VerticalAlignment="Top" Grid.ColumnSpan="5" Stroke="White" Margin="0,0,-2,0" StrokeThickness="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
@@ -161,8 +165,24 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="Button_ApplicationExit" Content="X" Grid.Column="4" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Width="33" BorderBrush="{x:Null}" Background="{x:Null}" Height="40" Click="Button_ApplicationExit_Click"/>
-        <Button x:Name="Button_ApplicationHide" Content="-" Grid.Column="3" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Width="37" RenderTransformOrigin="1.067,0.5" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18" Click="Button_ApplicationHide_Click" Height="40"/>
+        <Button x:Name="Button_ApplicationExit" Content="X" Grid.Column="4" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Width="33" BorderBrush="{x:Null}" Background="{x:Null}" Height="40" Style="{StaticResource  ExitButtonStyle}" Click="Button_ApplicationExit_Click"/>
+
+
+        <Button x:Name="Button_ApplicationHide" Content="-" Grid.Column="3" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Width="37" RenderTransformOrigin="1.067,0.5" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18" Style="{StaticResource HideButtonStyle}"  Click="Button_ApplicationHide_Click" Height="40"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="-74.92,-100,0,101.8" Width="160" IsManipulationEnabled="True" Background="{x:Null}" Foreground="#FFEFF1F5" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,-0.405" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"   BorderThickness="0">
+            <ListView.View> 
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+
+                </GridView>
+            </ListView.View>
+            <ListViewItem Content="ListViewItem" Height="100" Margin="0"/>
+            <ListViewItem Content="ListViewItem" Height="100" Margin="0"/>
+        </ListView>
 
     </Grid>
 </Window>
