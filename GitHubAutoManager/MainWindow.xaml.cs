@@ -28,8 +28,14 @@ namespace GitHubAutoManager
         private GitHubClient Client =  new GitHubClient(new ProductHeaderValue("AutoGit")) ;
         private bool isLogined = false;
 
+        private void MessageShow(string msg)
+        {
 
-
+        }
+        private bool MessageShowYesNo(string msg)
+        {
+            return true;
+        }
         private async Task<bool> Login(string id , string pw)
         {
             try
@@ -146,7 +152,11 @@ namespace GitHubAutoManager
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+           
+        }
 
+        private void UI_MenuList_Logout_Selected(object sender, RoutedEventArgs e)
+        {
             
         }
     }

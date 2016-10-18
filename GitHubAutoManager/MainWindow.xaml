@@ -72,6 +72,33 @@
             </Grid.RowDefinitions>
             <Button x:Name="Button_Login" Content="LOGIN" Margin="35,0,0,0" VerticalAlignment="Top" Height="24" Click="Button_Login_Click" HorizontalAlignment="Left" Width="80" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="16"/>
             <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,0,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+            <Grid x:Name="MessageGrid" Margin="-11,72,-28,215" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="47*"/>
+                    <ColumnDefinition Width="45*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="MessageBox_Text" TextWrapping="Wrap" Margin="443,46,429,149" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"><Run Text="Message"/><LineBreak/></TextBlock>
+                <Grid x:Name="Message_Button_Style" HorizontalAlignment="Center" Height="20" Margin="430,192,406,15" VerticalAlignment="Center" Width="84" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="51*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="MessageBox_Button_Ok" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" BorderBrush="#FF7A7A7A" Background="White" Click="Button_Click_1" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+                </Grid>
+                <Grid x:Name="MessageBox_YesNoStyle" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="20" Margin="382,192,360,15" VerticalAlignment="Center" Width="178" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="49*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="MessageBox_Button_No" Content="No" HorizontalAlignment="Left" Margin="31,0,-9,0" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White" Click="Button_Click_1" Grid.Column="1"/>
+                    <Button x:Name="MessageBox_Button_Yes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White" Click="Button_Click_1" Margin="-17,0,0,0"/>
+                </Grid>
+            </Grid>
         </Grid>
         <Grid x:Name="LeftGrid" HorizontalAlignment="Right" Height="542" Margin="-274,36,362.92,0" VerticalAlignment="Top" Width="276" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3">
             <Grid.RenderTransform>
@@ -152,10 +179,9 @@
                         </Image.Effect>
                     </Image>
                 </Border>
-                <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Text="ID" Foreground="#FFACACAC"/>
+                <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Foreground="#FFACACAC"/>
                 <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,-24,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="3" Width="140" Foreground="#FF6E6E6E" Grid.Row="1"/>
                 <ListView x:Name="listView" Margin="-10,67.441,17,-117" IsManipulationEnabled="True" Background="{x:Null}" Foreground="#FFEFF1F5" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,-0.405"   BorderThickness="0" Grid.Row="4" Grid.ColumnSpan="2">
-                    <ListViewItem Content="ListViewItem" Height="44.059"/>
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
@@ -164,7 +190,8 @@
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
                     <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
-                    <ListViewItem Content="  logout" Height="44.059" Foreground="Black"/>
+                    <ListViewItem Content="ListViewItem" Height="44.059" Foreground="Black"/>
+                    <ListViewItem x:Name="UI_MenuList_Logout" Content="Logout" Height="44.059" Foreground="Black"/>
                 </ListView>
             </Grid>
         </Grid>
