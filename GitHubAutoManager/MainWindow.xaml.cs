@@ -148,16 +148,47 @@ namespace GitHubAutoManager
         public MainWindow()
         {
             InitializeComponent();
+            MsgBox.Initalize(this);
         }
+        private void Logout()
+        {
+            CurrentUser = null;
+            Client.Credentials = null;
+            isLogined = false;
+            Button_Login.Content = "Login";
+            ProfileGrid.Visibility = Visibility.Hidden;
+            LoginGrid.Visibility = Visibility.Visible;
 
+        }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           
+            MsgBox.ShowYesNo("Hello", LogoutAskSlsect);
         }
 
+        private void LogoutAskSlsect(bool selected)
+        {
+            if(selected)
+            {
+                Logout();
+            }
+        }
         private void UI_MenuList_Logout_Selected(object sender, RoutedEventArgs e)
         {
-            
+        }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            string selectionTag = (string)((ListBoxItem)listBox.SelectedItem).Tag;
+            if (selectionTag == null)
+                return;
+            switch (selectionTag)
+            {
+                case "LogOut":
+                    MsgBox.ShowYesNo("Are You Sure?", LogoutAskSlsect);
+                    break;
+            }
+
         }
     }
 }
