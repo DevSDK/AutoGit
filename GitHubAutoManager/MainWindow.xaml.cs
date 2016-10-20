@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Http;
 using Octokit;
 
 
@@ -25,6 +26,7 @@ namespace GitHubAutoManager
 
         private object sync = new object();
         private User CurrentUser = null;
+        IReadOnlyList<Repository> UserRepos = null;
         private GitHubClient Client =  new GitHubClient(new ProductHeaderValue("AutoGit")) ;
         private bool isLogined = false;
 
@@ -49,6 +51,7 @@ namespace GitHubAutoManager
                 LoginInfo.Text = "login failed wrong id/pw";
                 LoginInfo.Visibility = Visibility.Visible;
                 Storyboard LoginSlide = (Storyboard)FindResource("LoginFall_Wrong_ID_PW");
+                UI_Password.Password = "";
                 LoginSlide.Begin(this);
                 return false;
             }
@@ -58,12 +61,20 @@ namespace GitHubAutoManager
                 LoginInfo.Visibility = Visibility.Visible;
                 Storyboard LoginSlide = (Storyboard)FindResource("LoginFall_Wrong_ID_PW");
                 LoginSlide.Begin(this);
+                UI_Password.Password = "";
                 return false;
             }
-                return true;
+            catch(HttpRequestException exp)
+            {
+                MsgBox.Show("No Connection Internet");
+                return false;
+            }
+
+            UI_Password.Password = "";
+            return true;
         }
 
-        private void LoginSecces()
+        private async void LoginSecces()
         {
             LoginGrid.Visibility = Visibility.Hidden;
             ProfileGrid.Visibility = Visibility.Visible;
@@ -73,6 +84,8 @@ namespace GitHubAutoManager
             Button_Login.Content = "Profile";
             ProfileResourceManager.setUser(CurrentUser);
             Avator.Source = new BitmapImage(new Uri(CurrentUser.AvatarUrl));
+            UserRepos = await Client.Repository.GetAllForUser(CurrentUser.Login);
+            
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -153,7 +166,7 @@ namespace GitHubAutoManager
         private void Logout()
         {
             CurrentUser = null;
-            Client.Credentials = null;
+           // Client.Credentials = null;//TODO: WHY EXCEPTION?
             isLogined = false;
             Button_Login.Content = "Login";
             ProfileGrid.Visibility = Visibility.Hidden;
@@ -171,6 +184,7 @@ namespace GitHubAutoManager
             {
                 Logout();
             }
+
         }
         private void UI_MenuList_Logout_Selected(object sender, RoutedEventArgs e)
         {
@@ -178,14 +192,17 @@ namespace GitHubAutoManager
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            string selectionTag = (string)((ListBoxItem)listBox.SelectedItem).Tag;
-            if (selectionTag == null)
+            if (listBox.SelectedItem == null)
                 return;
-            switch (selectionTag)
+             string selectionTag = (string)((ListBoxItem)listBox.SelectedItem).Tag;
+             switch (selectionTag)
             {
                 case "LogOut":
                     MsgBox.ShowYesNo("Are You Sure?", LogoutAskSlsect);
+                    ((ListBoxItem)listBox.SelectedItem).IsSelected = false;
+                    break;
+                case "Repositories":
+                    
                     break;
             }
 

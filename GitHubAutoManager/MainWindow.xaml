@@ -77,7 +77,7 @@
             <RowDefinition Height="359*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="MainGrid" Margin="-10,40,10,26" Grid.RowSpan="3" Grid.ColumnSpan="5">
+        <Grid x:Name="MainGrid" Margin="-10,39.333,2.8,26.667" Grid.RowSpan="3" Grid.ColumnSpan="5">
             <Grid.Effect>
                 <BlurEffect Radius="0"/>
             </Grid.Effect>
@@ -181,7 +181,7 @@
                 </Border>
                 <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Foreground="#FFACACAC"/>
                 <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,-24,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="3" Width="140" Foreground="#FF6E6E6E" Grid.Row="1"/>
-                <ListBox x:Name="listBox" Margin="-5,41,31,-134" Grid.Row="4" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="listBox_SelectionChanged">
+                <ListBox x:Name="listBox" Margin="0,111,26,-43" Grid.Row="4" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="listBox_SelectionChanged">
                     <ListBox.Resources>
                         <Style x:Key="myListboxStyle">
                             <Style.Resources>
@@ -190,45 +190,44 @@
                             </Style.Resources>
                         </Style>
                     </ListBox.Resources>
-                    <ListBoxItem Content="Menu Test" Height="58" VerticalContentAlignment="Center" Tag="Menu_LogOut" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="58.001" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="58" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="57.999" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="58.001" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="58" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="Menu Test" Height="58.001" VerticalContentAlignment="Center" Width="245"/>
-                    <ListBoxItem Content="LOGOUT" Height="58" VerticalContentAlignment="Center" Width="245" Tag="LogOut"/>
+                    <ListBoxItem Content="Repositories" Height="67.251" VerticalContentAlignment="Center" Width="245" Tag="Repositories"/>
+                    <ListBoxItem Content="Menu Test" Height="67.25" VerticalContentAlignment="Center" Width="245"/>
+                    <ListBoxItem Content="Menu Test" Height="67.25" VerticalContentAlignment="Center" Width="245"/>
+                    <ListBoxItem Content="LOGOUT" Height="67.25" VerticalContentAlignment="Center" Width="245" Tag="LogOut"/>
                 </ListBox>
+                <ListBox x:Name="TestRepo" Margin="0,0,-254,32" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Grid.RowSpan="3" Width="155"/>
             </Grid>
         </Grid>
-        <Grid x:Name="MessageGrid" Margin="2,26,-3,10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="5" Grid.RowSpan="3" Height="644" Width="919" Background="#00000000" Visibility="Hidden">
+        <Grid x:Name="MessageGrid" Margin="0,26,-5.825,9.8" Grid.ColumnSpan="5" Grid.RowSpan="3" Background="#00000000" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="47*"/>
                 <ColumnDefinition Width="45*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="MessageBox_Text" TextWrapping="Wrap" Margin="304,251,280,320" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Width="335" Height="73" TextAlignment="Center"><Run Text="Message"/><LineBreak/></TextBlock>
-            <Grid x:Name="Message_Button_Style" HorizontalAlignment="Center" Height="20" Margin="429,352,406,272" VerticalAlignment="Center" Width="84" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="24*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="51*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button x:Name="MessageBox_Button_Ok" Content="OK" VerticalAlignment="Top" BorderBrush="#FF7A7A7A" Background="White" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="5,0,0,0" HorizontalAlignment="Left" Width="75"/>
-            </Grid>
-            <Grid x:Name="MessageBox_YesNoStyle" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="20" Margin="368,352,349,272" VerticalAlignment="Center" Width="202" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="80*"/>
-                    <ColumnDefinition Width="69*"/>
-                    <ColumnDefinition Width="29*"/>
-                    <ColumnDefinition Width="0*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="MessageBox_Button_No" Content="No" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White"  Grid.Column="2" Height="20" Grid.ColumnSpan="2"/>
-                <Button x:Name="MessageBox_Button_Yes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White" Grid.ColumnSpan="2" Height="20"/>
+            <Grid x:Name="MessageShowGrid" Margin="-10,189.1,-1.6,244.9" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="935.225" Background="#B2F3F3F3">
+                <TextBlock x:Name="MessageBox_Text" TextWrapping="Wrap" Margin="10,0,5.402,87.1" TextAlignment="Center" Height="73" VerticalAlignment="Bottom" Text="MSG"/>
+                <Grid x:Name="Message_Button_Style" Height="20" Margin="434,0,417.225,50" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="51*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="MessageBox_Button_Ok" Content="OK" VerticalAlignment="Top" BorderBrush="#FF7A7A7A" Background="White" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="1,-0.06,0,0" HorizontalAlignment="Left" Width="75"/>
+                </Grid>
+                <Grid x:Name="MessageBox_YesNoStyle" Height="20" Margin="373,0,360.225,50" VerticalAlignment="Bottom" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="69*"/>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="0*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="MessageBox_Button_No" Content="No" HorizontalAlignment="Left" Margin="35,0,0,0" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White"  Grid.Column="2" Height="20" Grid.ColumnSpan="2"/>
+                    <Button x:Name="MessageBox_Button_Yes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" BorderBrush="#FF7A7A7A" Background="White" Grid.ColumnSpan="2" Height="20"/>
+                </Grid>
             </Grid>
         </Grid>
         <Rectangle x:Name="TitleBar" Height="32" VerticalAlignment="Top" Grid.ColumnSpan="5" Stroke="White" Margin="0,0,-2,0" StrokeThickness="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
