@@ -195,7 +195,9 @@
                     <ListBoxItem Content="Menu Test" Height="67.25" VerticalContentAlignment="Center" Width="245"/>
                     <ListBoxItem Content="LOGOUT" Height="67.25" VerticalContentAlignment="Center" Width="245" Tag="LogOut"/>
                 </ListBox>
-                <ListBox x:Name="TestRepo" Margin="0,0,-254,32" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Grid.RowSpan="3" Width="155"/>
+                <Grid x:Name="RepositoryMenuGrid" HorizontalAlignment="Right" Margin="0,15,-899,-103" Width="890" Grid.Column="1" Grid.RowSpan="5" Visibility="Hidden">
+                    <ListBox x:Name="TestRepo" Margin="135,65,390,70"/>
+                </Grid>
             </Grid>
         </Grid>
         <Grid x:Name="MessageGrid" Margin="0,26,-5.825,9.8" Grid.ColumnSpan="5" Grid.RowSpan="3" Background="#00000000" Visibility="Hidden">

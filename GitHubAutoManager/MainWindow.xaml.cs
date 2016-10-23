@@ -73,6 +73,13 @@ namespace GitHubAutoManager
             UI_Password.Password = "";
             return true;
         }
+        private void LoadRepositorys()
+        {
+            foreach (Repository rp in UserRepos)
+            {
+                TestRepo.Items.Add(rp.FullName);
+            }
+        }
 
         private async void LoginSecces()
         {
@@ -84,8 +91,10 @@ namespace GitHubAutoManager
             Button_Login.Content = "Profile";
             ProfileResourceManager.setUser(CurrentUser);
             Avator.Source = new BitmapImage(new Uri(CurrentUser.AvatarUrl));
+
             UserRepos = await Client.Repository.GetAllForUser(CurrentUser.Login);
-            
+            TestRepo.Items.Clear();
+            LoadRepositorys();
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -171,7 +180,6 @@ namespace GitHubAutoManager
             Button_Login.Content = "Login";
             ProfileGrid.Visibility = Visibility.Hidden;
             LoginGrid.Visibility = Visibility.Visible;
-
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -184,7 +192,7 @@ namespace GitHubAutoManager
             {
                 Logout();
             }
-
+            ((ListBoxItem)listBox.SelectedItem).IsSelected = false;
         }
         private void UI_MenuList_Logout_Selected(object sender, RoutedEventArgs e)
         {
@@ -199,9 +207,9 @@ namespace GitHubAutoManager
             {
                 case "LogOut":
                     MsgBox.ShowYesNo("Are You Sure?", LogoutAskSlsect);
-                    ((ListBoxItem)listBox.SelectedItem).IsSelected = false;
                     break;
                 case "Repositories":
+                    RepositoryMenuGrid.Visibility = Visibility.Visible;
                     
                     break;
             }
