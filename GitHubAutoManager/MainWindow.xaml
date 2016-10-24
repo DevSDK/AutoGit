@@ -88,7 +88,7 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="Button_Login" Content="LOGIN" Margin="35,0,0,0" VerticalAlignment="Top" Height="24" Click="Button_Login_Click" HorizontalAlignment="Left" Width="80" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="16"/>
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,0,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,0,0,80" Width="75" Click="button_Click"/>
             <Rectangle x:Name="DisableClick" Margin="10,-10,-12.2,-21.2" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3" Fill="#00000000" Visibility="Hidden">
                 <Rectangle.RenderTransform>
                     <TransformGroup>

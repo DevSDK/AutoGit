@@ -180,10 +180,12 @@ namespace GitHubAutoManager
             Button_Login.Content = "Login";
             ProfileGrid.Visibility = Visibility.Hidden;
             LoginGrid.Visibility = Visibility.Visible;
+
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            MsgBox.ShowYesNo("Hello", LogoutAskSlsect);
+            Console.WriteLine(UserRepos[0].CloneUrl);
+            
         }
 
         private void LogoutAskSlsect(bool selected)
@@ -210,7 +212,7 @@ namespace GitHubAutoManager
                     break;
                 case "Repositories":
                     RepositoryMenuGrid.Visibility = Visibility.Visible;
-                    
+                
                     break;
             }
 
