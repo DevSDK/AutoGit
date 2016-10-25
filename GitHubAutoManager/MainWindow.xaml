@@ -99,6 +99,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
+            <Button x:Name="button1" Content="r" HorizontalAlignment="Left" Margin="598,0,0,0" VerticalAlignment="Top" Width="76" Click="button1_Click"/>
         </Grid>
         <Grid x:Name="LeftGrid" HorizontalAlignment="Right" Height="542" Margin="-280,35,368.92,0" VerticalAlignment="Top" Width="276" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3">
             <Grid.RenderTransform>

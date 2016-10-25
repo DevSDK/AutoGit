@@ -17,7 +17,6 @@ using System.Windows.Shapes;
 using System.Net.Http;
 using Octokit;
 
-
 namespace GitHubAutoManager
 {
 
@@ -32,7 +31,7 @@ namespace GitHubAutoManager
 
         private void MessageShow(string msg)
         {
-
+            
         }
         private bool MessageShowYesNo(string msg)
         {
@@ -182,10 +181,13 @@ namespace GitHubAutoManager
             LoginGrid.Visibility = Visibility.Visible;
 
         }
+        LibGit2Sharp.Repository localrepo; //TEST 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(UserRepos[0].CloneUrl);
-            
+            var dialog = new System.Windows.Forms.FolderBrowserDialog() { ShowNewFolderButton = false };
+
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            localrepo = new LibGit2Sharp.Repository(dialog.SelectedPath);
         }
 
         private void LogoutAskSlsect(bool selected)
@@ -216,6 +218,10 @@ namespace GitHubAutoManager
                     break;
             }
 
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
