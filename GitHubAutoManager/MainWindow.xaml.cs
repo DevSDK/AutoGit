@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
-using Octokit;
+using LibGit2Sharp;
 
 namespace GitHubAutoManager
 {
@@ -24,9 +24,10 @@ namespace GitHubAutoManager
     {
 
         private object sync = new object();
-        private User CurrentUser = null;
-        IReadOnlyList<Repository> UserRepos = null;
-        private GitHubClient Client =  new GitHubClient(new ProductHeaderValue("AutoGit")) ;
+        private Octokit.User CurrentUser = null;
+        IReadOnlyList<Octokit.Repository> UserRepos = null;
+
+        private Octokit.GitHubClient Client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("AutoGit")) ;
         private bool isLogined = false;
 
         private void MessageShow(string msg)
@@ -41,11 +42,12 @@ namespace GitHubAutoManager
         {
             try
             {
-                Credentials basicAuth = new Credentials(id, pw);
+
+                Octokit.Credentials basicAuth = new Octokit.Credentials(id, pw);
                 Client.Credentials = basicAuth;
                 CurrentUser = await Client.User.Current();
             }
-            catch (AuthorizationException exp)
+            catch (Octokit.AuthorizationException exp)
             {
                 LoginInfo.Text = "login failed wrong id/pw";
                 LoginInfo.Visibility = Visibility.Visible;
@@ -74,7 +76,7 @@ namespace GitHubAutoManager
         }
         private void LoadRepositorys()
         {
-            foreach (Repository rp in UserRepos)
+            foreach (Octokit.Repository rp in UserRepos)
             {
                 TestRepo.Items.Add(rp.FullName);
             }
@@ -121,8 +123,8 @@ namespace GitHubAutoManager
         {
             if(isLogined == false && isShowedLogin == false)
             {
-                Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
                 LoginGrid.Visibility = Visibility.Visible;
+                Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
                 LoginSlide.Begin(this);
             }
             if(isLogined == true && isShowedLogin == false)
@@ -135,6 +137,10 @@ namespace GitHubAutoManager
         {
             if (isShowedLogin == false)
                 return;
+            RepositoryMenuGrid.Visibility = Visibility.Hidden;
+            if (MenuList.SelectedItem != null)
+                ((ListBoxItem)MenuList.SelectedItem).IsSelected = false;
+
             Storyboard LoginSlide = (Storyboard)FindResource("HideLeftGrid");
             LoginSlide.Begin(this);
         }
@@ -188,15 +194,31 @@ namespace GitHubAutoManager
 
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             localrepo = new LibGit2Sharp.Repository(dialog.SelectedPath);
-        }
+            TreeChanges changs = localrepo.Diff.Compare<TreeChanges>(localrepo.Head.Tip.Tree, DiffTargets.Index | DiffTargets.WorkingDirectory);
 
+            foreach (var item in localrepo.RetrieveStatus())
+            {
+                if (item.State == FileStatus.ModifiedInWorkdir)
+                {
+                     var patch = localrepo.Diff.Compare<Patch>(new List<string>() { item.FilePath });
+                    Console.WriteLine("~~~~ {0} ~~~~",item.FilePath);
+                    Console.WriteLine(patch.Content);
+                }
+
+            }
+                foreach (LibGit2Sharp.Commit item in localrepo.Commits)
+            {
+                Console.WriteLine(item.Id + "mes: " + item.Message);
+            }
+        }
+            
         private void LogoutAskSlsect(bool selected)
         {
             if(selected)
             {
                 Logout();
             }
-            ((ListBoxItem)listBox.SelectedItem).IsSelected = false;
+            ((ListBoxItem)MenuList.SelectedItem).IsSelected = false;
         }
         private void UI_MenuList_Logout_Selected(object sender, RoutedEventArgs e)
         {
@@ -204,9 +226,9 @@ namespace GitHubAutoManager
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (listBox.SelectedItem == null)
+            if (MenuList.SelectedItem == null)
                 return;
-             string selectionTag = (string)((ListBoxItem)listBox.SelectedItem).Tag;
+             string selectionTag = (string)((ListBoxItem)MenuList.SelectedItem).Tag;
              switch (selectionTag)
             {
                 case "LogOut":

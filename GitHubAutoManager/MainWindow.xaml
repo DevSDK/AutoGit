@@ -182,7 +182,7 @@
                 </Border>
                 <TextBlock x:Name="UI_USERID" Margin="24,39,28.04,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11" Foreground="#FFACACAC"/>
                 <TextBlock x:Name="UI_About" HorizontalAlignment="Left" Margin="10,-24,0,-20" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Grid.RowSpan="3" Width="140" Foreground="#FF6E6E6E" Grid.Row="1"/>
-                <ListBox x:Name="listBox" Margin="0,111,26,-43" Grid.Row="4" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="listBox_SelectionChanged">
+                <ListBox x:Name="MenuList" Margin="0,111,26,-43" Grid.Row="4" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="listBox_SelectionChanged">
                     <ListBox.Resources>
                         <Style x:Key="myListboxStyle">
                             <Style.Resources>
@@ -196,7 +196,7 @@
                     <ListBoxItem Content="Menu Test" Height="67.25" VerticalContentAlignment="Center" Width="245"/>
                     <ListBoxItem Content="LOGOUT" Height="67.25" VerticalContentAlignment="Center" Width="245" Tag="LogOut"/>
                 </ListBox>
-                <Grid x:Name="RepositoryMenuGrid" HorizontalAlignment="Right" Margin="0,15,-899,-103" Width="890" Grid.Column="1" Grid.RowSpan="5" Visibility="Hidden">
+                <Grid x:Name="RepositoryMenuGrid" HorizontalAlignment="Right" Margin="0,15,-899,-103" Width="890" Grid.Column="1" Grid.RowSpan="5">
                     <ListBox x:Name="TestRepo" Margin="135,65,390,70"/>
                 </Grid>
             </Grid>
