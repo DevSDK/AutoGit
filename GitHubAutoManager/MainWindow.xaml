@@ -88,7 +88,7 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="Button_Login" Content="LOGIN" Margin="35,0,0,0" VerticalAlignment="Top" Height="24" Click="Button_Login_Click" HorizontalAlignment="Left" Width="80" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="16"/>
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="480,0,0,80" Width="75" Click="button_Click"/>
+            <Button x:Name="button" Content="Add Local" HorizontalAlignment="Left" Margin="226,320,0,174" Width="75" Click="button_Click" Grid.Row="2"/>
             <Rectangle x:Name="DisableClick" Margin="10,-10,-12.2,-21.2" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3" Fill="#00000000" Visibility="Hidden">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -99,7 +99,8 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Button x:Name="button1" Content="r" HorizontalAlignment="Left" Margin="598,0,0,0" VerticalAlignment="Top" Width="76" Click="button1_Click"/>
+            <Button x:Name="button1" Content="Clone Repo" HorizontalAlignment="Left" Margin="364,320,0,0" VerticalAlignment="Top" Width="76" Click="button1_Click" RenderTransformOrigin="-1.605,18.2" Grid.Row="2"/>
+            <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="287" Margin="226,0,0,0" VerticalAlignment="Top" Width="523" Grid.Row="2"/>
         </Grid>
         <Grid x:Name="LeftGrid" HorizontalAlignment="Right" Height="542" Margin="-280,35,368.92,0" VerticalAlignment="Top" Width="276" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3">
             <Grid.RenderTransform>

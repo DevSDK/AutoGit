@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using LibGit2Sharp;
+using System.Data.SQLite;
+using System.IO;
 
 namespace GitHubAutoManager
 {
@@ -26,18 +28,16 @@ namespace GitHubAutoManager
         private object sync = new object();
         private Octokit.User CurrentUser = null;
         IReadOnlyList<Octokit.Repository> UserRepos = null;
-
+        SQLiteConnection SQLConnection;
         private Octokit.GitHubClient Client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("AutoGit")) ;
         private bool isLogined = false;
-
-        private void MessageShow(string msg)
-        {
-            
-        }
+        
         private bool MessageShowYesNo(string msg)
         {
             return true;
         }
+
+
         private async Task<bool> Login(string id , string pw)
         {
             try
@@ -190,8 +190,9 @@ namespace GitHubAutoManager
         LibGit2Sharp.Repository localrepo; //TEST 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new System.Windows.Forms.FolderBrowserDialog() { ShowNewFolderButton = false };
 
+            /*var dialog = new System.Windows.Forms.FolderBrowserDialog() { ShowNewFolderButton = false };
+    
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             localrepo = new LibGit2Sharp.Repository(dialog.SelectedPath);
             TreeChanges changs = localrepo.Diff.Compare<TreeChanges>(localrepo.Head.Tip.Tree, DiffTargets.Index | DiffTargets.WorkingDirectory);
@@ -210,6 +211,8 @@ namespace GitHubAutoManager
             {
                 Console.WriteLine(item.Id + "mes: " + item.Message);
             }
+            */
+            AddLocalRepository("Test", @"C:\Users\송석호\git\gl");
         }
             
         private void LogoutAskSlsect(bool selected)
@@ -244,6 +247,37 @@ namespace GitHubAutoManager
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+        }
+        private void CreateDBFile()
+        {
+
+            SQLiteConnection.CreateFile("data.db");
+       
+
+        }
+        private void AddLocalRepository(string name, string path)
+        {
+            if (!new FileInfo(path).Exists)
+            {
+                SQLiteConnection.CreateFile("data.db");
+                SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
+                SQLConnection.Open();
+                using (SQLiteCommand cmand = new SQLiteCommand(
+                    @"CREATE TABLE table_name (
+                     RepoName TEXT,
+                     RepoID INT,
+                    )", SQLConnection))
+                {
+                    cmand.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
+                SQLConnection.Open();
+            }
+            
+
         }
     }
 }
