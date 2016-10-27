@@ -259,14 +259,15 @@ namespace GitHubAutoManager
         {
             if (!new FileInfo(path).Exists)
             {
-                SQLiteConnection.CreateFile("data.db");
+                SQLiteConnection.CreateFile("data.sdf");
                 SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
                 SQLConnection.Open();
                 using (SQLiteCommand cmand = new SQLiteCommand(
                     @"CREATE TABLE table_name (
-                     RepoName TEXT,
-                     RepoID INT,
-                    )", SQLConnection))
+                     RepoName TEXT(20),
+                     RepoID INT(20),
+                     Path VARCHAR(40)
+                    );", SQLConnection))
                 {
                     cmand.ExecuteNonQuery();
                 }
@@ -275,6 +276,16 @@ namespace GitHubAutoManager
             {
                 SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
                 SQLConnection.Open();
+            }
+
+            using (SQLiteCommand command = new SQLiteCommand(@"select count(*) from sqlite_master Where Name = 'LocalRepository'"))
+            {
+                SQLiteDataReader rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Console.WriteLine(rdr);
+                }
             }
             
 
