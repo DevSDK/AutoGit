@@ -212,7 +212,8 @@ namespace GitHubAutoManager
                 Console.WriteLine(item.Id + "mes: " + item.Message);
             }
             */
-            AddLocalRepository("Test", @"C:\Users\송석호\git\gl");
+            
+            AddLocalRepository("Test", @"data.sdf");
         }
             
         private void LogoutAskSlsect(bool selected)
@@ -229,6 +230,8 @@ namespace GitHubAutoManager
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
             if (MenuList.SelectedItem == null)
                 return;
              string selectionTag = (string)((ListBoxItem)MenuList.SelectedItem).Tag;
@@ -257,19 +260,22 @@ namespace GitHubAutoManager
         }
         private void AddLocalRepository(string name, string path)
         {
+
+
+
             if (!new FileInfo(path).Exists)
             {
-                SQLiteConnection.CreateFile("data.sdf");
+                SQLiteConnection.CreateFile("data.db");
                 SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
                 SQLConnection.Open();
-                using (SQLiteCommand cmand = new SQLiteCommand(
-                    @"CREATE TABLE table_name (
+                using (SQLiteCommand command = new SQLiteCommand(
+                    @"CREATE TABLE Local_RepoTable (
                      RepoName TEXT(20),
                      RepoID INT(20),
                      Path VARCHAR(40)
                     );", SQLConnection))
                 {
-                    cmand.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
             }
             else
@@ -278,17 +284,22 @@ namespace GitHubAutoManager
                 SQLConnection.Open();
             }
 
-            using (SQLiteCommand command = new SQLiteCommand(@"select count(*) from sqlite_master Where Name = 'LocalRepository'"))
+            using (SQLiteCommand command = SQLConnection.CreateCommand())
             {
+                command.CommandText = "select count(*) from sqlite_master Where Name = 'Local_RepoTable';";
+                command.CommandType = System.Data.CommandType.Text;
                 SQLiteDataReader rdr = command.ExecuteReader();
 
                 while (rdr.Read())
                 {
-                    Console.WriteLine(rdr);
+                    Console.WriteLine(Convert.ToString(rdr["data.db"]));
                 }
             }
             
 
         }
+
+
     }
 }
+
