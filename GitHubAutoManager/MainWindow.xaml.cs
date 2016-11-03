@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,16 +29,16 @@ namespace GitHubAutoManager
         private Octokit.User CurrentUser = null;
         IReadOnlyList<Octokit.Repository> UserRepos = null;
         SQLiteConnection SQLConnection;
-        private Octokit.GitHubClient Client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("AutoGit")) ;
+        private Octokit.GitHubClient Client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("AutoGit"));
         private bool isLogined = false;
-        
+
         private bool MessageShowYesNo(string msg)
         {
             return true;
         }
 
 
-        private async Task<bool> Login(string id , string pw)
+        private async Task<bool> Login(string id, string pw)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace GitHubAutoManager
                 LoginSlide.Begin(this);
                 return false;
             }
-            catch(ArgumentException exp)
+            catch (ArgumentException exp)
             {
                 LoginInfo.Text = "Pleas write id/pw";
                 LoginInfo.Visibility = Visibility.Visible;
@@ -65,7 +65,7 @@ namespace GitHubAutoManager
                 UI_Password.Password = "";
                 return false;
             }
-            catch(HttpRequestException exp)
+            catch (HttpRequestException exp)
             {
                 MsgBox.Show("No Connection Internet");
                 return false;
@@ -104,7 +104,7 @@ namespace GitHubAutoManager
             if (isLogined == true)
                 LoginSecces();
         }
-  
+
         private async void UI_Password_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
@@ -113,7 +113,7 @@ namespace GitHubAutoManager
             if (isLogined == true)
                 LoginSecces();
         }
-        
+
         //////////////////// UX/UI ////////////////////
 
 
@@ -121,13 +121,13 @@ namespace GitHubAutoManager
 
         private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
-            if(isLogined == false && isShowedLogin == false)
+            if (isLogined == false && isShowedLogin == false)
             {
                 LoginGrid.Visibility = Visibility.Visible;
                 Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
                 LoginSlide.Begin(this);
             }
-            if(isLogined == true && isShowedLogin == false)
+            if (isLogined == true && isShowedLogin == false)
             {
                 Storyboard LoginSlide = (Storyboard)FindResource("ShowLeftGrid");
                 LoginSlide.Begin(this);
@@ -171,7 +171,7 @@ namespace GitHubAutoManager
         {
             this.DragMove();
         }
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -180,7 +180,7 @@ namespace GitHubAutoManager
         private void Logout()
         {
             CurrentUser = null;
-           // Client.Credentials = null;//TODO: WHY EXCEPTION?
+            // Client.Credentials = null;//TODO: WHY EXCEPTION?
             isLogined = false;
             Button_Login.Content = "Login";
             ProfileGrid.Visibility = Visibility.Hidden;
@@ -196,7 +196,6 @@ namespace GitHubAutoManager
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             localrepo = new LibGit2Sharp.Repository(dialog.SelectedPath);
             TreeChanges changs = localrepo.Diff.Compare<TreeChanges>(localrepo.Head.Tip.Tree, DiffTargets.Index | DiffTargets.WorkingDirectory);
-
             foreach (var item in localrepo.RetrieveStatus())
             {
                 if (item.State == FileStatus.ModifiedInWorkdir)
@@ -205,20 +204,19 @@ namespace GitHubAutoManager
                     Console.WriteLine("~~~~ {0} ~~~~",item.FilePath);
                     Console.WriteLine(patch.Content);
                 }
-
             }
                 foreach (LibGit2Sharp.Commit item in localrepo.Commits)
             {
                 Console.WriteLine(item.Id + "mes: " + item.Message);
             }
             */
-            
+
             AddLocalRepository("Test", @"data.sdf");
         }
-            
+
         private void LogoutAskSlsect(bool selected)
         {
-            if(selected)
+            if (selected)
             {
                 Logout();
             }
@@ -234,15 +232,15 @@ namespace GitHubAutoManager
 
             if (MenuList.SelectedItem == null)
                 return;
-             string selectionTag = (string)((ListBoxItem)MenuList.SelectedItem).Tag;
-             switch (selectionTag)
+            string selectionTag = (string)((ListBoxItem)MenuList.SelectedItem).Tag;
+            switch (selectionTag)
             {
                 case "LogOut":
                     MsgBox.ShowYesNo("Are You Sure?", LogoutAskSlsect);
                     break;
                 case "Repositories":
                     RepositoryMenuGrid.Visibility = Visibility.Visible;
-                
+
                     break;
             }
 
@@ -255,7 +253,7 @@ namespace GitHubAutoManager
         {
 
             SQLiteConnection.CreateFile("data.db");
-       
+
 
         }
         private void AddLocalRepository(string name, string path)
@@ -295,11 +293,10 @@ namespace GitHubAutoManager
                     Console.WriteLine(Convert.ToString(rdr["data.db"]));
                 }
             }
-            
+
 
         }
 
 
     }
 }
-
