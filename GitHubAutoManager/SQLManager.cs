@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +30,26 @@ namespace GitHubAutoManager
             }
             return state;
          }
-
+        public static SQLiteConnection ConnectionSqliteFile(string file)
+        {
+            SQLiteConnection connection = null;
+            if (!new FileInfo(file).Exists)
+            {
+                SQLiteConnection.CreateFile(file);
+            }
+                connection = new SQLiteConnection("Data Source=data.db;Version=3;");
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(
+                    @"CREATE TABLE Local_RepoTable (
+                     RepoName TEXT(20),
+                     RepoID INT(20),
+                     Path VARCHAR(40)
+                    );", connection))
+                {//TODO: 테이블이 없다면 테이블 추가 명령어 추가
+                    command.ExecuteNonQuery();
+                }
+            return connection;
+        }
         public static void NoReturnCommand( string stringCommand, SQLiteConnection connection)
         {
             using (SQLiteCommand command = new SQLiteCommand(stringCommand, connection))

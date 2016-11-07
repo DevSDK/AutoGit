@@ -261,21 +261,7 @@ namespace GitHubAutoManager
 
 
 
-            if (!new FileInfo(path).Exists)
-            {
-                SQLiteConnection.CreateFile("data.db");
-                SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
-                SQLConnection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(
-                    @"CREATE TABLE Local_RepoTable (
-                     RepoName TEXT(20),
-                     RepoID INT(20),
-                     Path VARCHAR(40)
-                    );", SQLConnection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
+ 
             else
             {
                 SQLConnection = new SQLiteConnection("Data Source=data.db;Version=3;");
