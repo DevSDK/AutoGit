@@ -1,8 +1,9 @@
 # AutoGit
-C# WPF based github management OpenSource Client
 
-This Application for lazy github user
+OpenSource C# WPF-Based Github management Client
 
-No work yet
+This Application for lazy github users.
 
-License - GPL3
+Does not work yet
+
+Under GPL3 License
